@@ -1,60 +1,70 @@
+#pragma once
 #include <string>
-#include <map>
-using namespace std;
 
-enum TT
+enum TT  // Remeber to add to operator<< cast
 {
-    NUMBER      = 0,
-    PLUS        = 1,
-    MINUS       = 2,
-    TIMES       = 3,
-    DIVIDE      = 4,
-    POWER       = 5,
-    LPAREN      = 6,
-    RPAREN      = 7
+    INT     ,
+    FLOAT   ,
+    PLUS    ,
+    MINUS   ,
+    TIMES   ,
+    DIVIDE  ,
+    POW   ,
+    LPAREN  ,
+    RPAREN  ,
+    ERROR
 };
 
 class Token
 {
     public:
         TT type;
-        string value;
+        std::string value;
 
-        Token(TT tokenID, string VALUE)
+        Token()
+        {
+            type = ERROR;
+            value = "";
+        }
+
+        Token(TT tokenID, std::string VALUE)
         {
             type = tokenID;
             value = VALUE;
         }
 
-        operator string () const
+        Token(TT tokenID)
         {
-            return "string cast workin!";
+            type = tokenID;
+            value = "";
         }
 
-        friend ostream& operator<<(std::ostream&, const Token&);
+        friend std::ostream& operator<<(std::ostream&, const Token&);
 };
 
-ostream& operator<<(ostream& os, const Token& token)
+std::ostream& operator<<(std::ostream& os, const Token& token)
 {
-    string type;
+    std::string type;
     switch (token.type)
     {
-        case 0: type = "NUMBER"; break;
-        case 1: type = "PLUS"; break;
-        case 2: type = "MINUS"; break;
-        case 3: type = "TIMES"; break;
-        case 4: type = "DIVIDE"; break;
-        case 5: type = "POWER"; break;
-        case 6: type = "LPAREN"; break;
-        case 7: type = "RPAREN"; break;
+        case 0: type = "INT"; break;
+        case 1: type = "FLOAT"; break;
+        case 2: type = "PLUS"; break;
+        case 3: type = "MINUS"; break;
+        case 4: type = "TIMES"; break;
+        case 5: type = "DIVIDE"; break;
+        case 6: type = "POWER"; break;
+        case 7: type = "LPAREN"; break;
+        case 8: type = "RPAREN"; break;
+        case 9: type = "ERROR"; break;
     }
     if (token.value == "")
     {
-        os << "(" + type + ")";
+        os << "[" + type + "]";
     }
     else
     {
-        os << "(" + type + ":" << token.value << ")";
+        os << "[" + type + ":" << token.value << "]";
     }
     
     return os;

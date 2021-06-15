@@ -1,26 +1,39 @@
 #include <iostream>
+#include <vector>
 #include <string>
 #include "lexer.cpp"
-using namespace std;
+#include "tokens.cpp"
 
 class Shell
 {
     private:
         Lexer lexer;
-        string command;
+        std::string command;
     public:
         int run()
         {
-            cout << "MiKaScript>>> ";
-            getline(cin, command);
+            // Set up
+            std::cout << "MiKaScript>>> ";
+            std::getline(std::cin, command);
 
+            // Special Commands
+            // TODO: Make these commands builtin functions
             if (command == "exit")
             {
                 return 1;
             }
 
+            // Lexer -> Create Tokens
             lexer.recieve(command);
-            lexer.print();
+            std::vector<Token> tokens = lexer.tokenize(command);
+            
+            // Do Stuff with Tokens
+            for (Token x : tokens)
+                    std::cout << x << " ";
+            std::cout << std::endl;
+
+            // Clean Up
+            lexer.reset();
 
             return 0;
         }

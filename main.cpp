@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include "shell.cpp"
-using namespace std;
 
 int main()
 {

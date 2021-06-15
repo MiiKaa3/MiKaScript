@@ -1,1 +1,2 @@
 # MiKaScript
+Hobby project: I want to make my own programming language. It's been a while since I've done intense work in cpp, and I also think that this is by far the most complicated thing I've ever tried to build in cpp. Rustiness and great aspirations; bad combination :P 
